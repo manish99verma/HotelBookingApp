@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/btn_login_with_google"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_margin="5dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardBackgroundColor="@color/login_icon_bg"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="2dp"
+        app:strokeColor="@color/login_icon_stroke">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/google"
+            android:src="@drawable/ic_google" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/btn_login_with_fb"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="5dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardBackgroundColor="@color/login_icon_bg"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="2dp"
+        app:strokeColor="@color/login_icon_stroke">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/google"
+            android:src="@drawable/ic_facebook" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

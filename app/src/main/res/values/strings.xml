@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">Hotel Booking App</string>
+    <string name="image">Image</string>
+    <string name="welcome_screen_title">Unleash Your Inner Traveller</string>
+    <string name="txt_welcome_caption">Your passport to a world of extraordinary hotel experiences. Join us today and unlock a realm of comfort, luxury, and adventure.</string>
+    <string name="start_exploring">Start Exploring</string>
+    <string name="arrow_right">arrow_right</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="login"><u>Login</u></string>
+    <string name="go_back">go_back</string>
+    <string name="create">Create</string>
+    <string name="account">Account</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="continue_">Continue</string>
+    <string name="or_signup_with">Or signup with</string>
+    <string name="google">Google</string>
+    <string name="subtitle_signup">Fill your information below or register with your social account.</string>
+    <string name="welcome">Welcome</string>
+    <string name="back">Back</string>
+    <string name="login_subtitle">We missed you! Login to continue your journey with us.</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="or_continue_with">Or continue with</string>
+    <string name="verify">Verify</string>
+    <string name="please_enter_the_verification_code_sent_to_example_gmail_com">Please enter the verification code sent to example@gmail.com</string>
+    <string name="resend_again">Resend again</string>
+    <string name="did_t_receive_code">Did\'t receive code?</string>
+
+    <string name="google_web_client">414731521582-3nodtgho3jidvfv7rutbj6tn705pt01n.apps.googleusercontent.com</string>
+
+
+    <string name="facebook_app_id">1401879463761270</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">e99a473a451c1b9a2467e588ef5a1c23</string>
+
+
+    <string name="internet_not_working">Uh..oh… We\'re unable proceed, its seems like your internet connection is broke or maybe limited. Please check it and try again.</string>
+    <string name="cancel">Cancel</string>
+    <string name="try_again">Try Again</string>
+    <string name="limited_internet_connection">Limited Internet Connection</string>
+    <string name="auth_user_collision_message">It seems like %1$s is already linked with the following login providers. Please select any of following provider in order to login with your previous information.</string>
+    <string name="user_collision">User Collision</string>
+    <string name="select">Select</string>
+    <string name="operation_cancelled">Operation Cancelled</string>
+    <string name="operation_cancelled_content">It seems like you cancel the on-going operation. You can restart the process by simply clicking Try Again.</string>
+    <string name="logout">Logout</string>
+</resources>

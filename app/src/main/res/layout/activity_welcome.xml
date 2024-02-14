@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activities.WelcomeActivity">
+
+    <ImageView
+        android:id="@+id/img_welcome_1"
+        android:layout_width="117dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="7dp"
+        android:contentDescription="@string/image"
+        android:scaleType="fitEnd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/img_welcome_2"
+        android:layout_width="276dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="-15dp"
+        android:contentDescription="@string/image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_welcome_1" />
+
+    <ImageView
+        android:id="@+id/img_welcome_3"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="-15dp"
+        android:contentDescription="@string/image"
+        android:scaleType="fitStart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_welcome_2" />
+
+
+    <TextView
+        android:id="@+id/txt_title"
+        style="@style/text_welcome_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/welcome_screen_title"
+        android:textColor="@color/surface_color_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_welcome_3" />
+
+    <TextView
+        android:id="@+id/textView"
+        style="@style/text_welcome_caption"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="22dp"
+        android:layout_marginTop="2dp"
+        android:text="@string/txt_welcome_caption"
+        android:textColor="@color/surface_color_caption"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_title" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/btn_next"
+        android:layout_width="318dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="30dp"
+        app:cardBackgroundColor="@color/surface_color_1"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <TextView
+                style="@style/default_btn_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="90dp"
+                android:text="@string/start_exploring"
+                android:textColor="@color/button_text_color_1" />
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="15dp"
+                android:contentDescription="@string/arrow_right"
+                android:src="@drawable/ic_arrow_top_right" />
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/btn_next"
+        app:layout_constraintStart_toStartOf="@+id/btn_next"
+        app:layout_constraintTop_toBottomOf="@+id/btn_next">
+
+        <TextView
+            style="@style/text_body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/already_have_an_account"
+            android:textColor="@color/surface_color_body" />
+
+        <TextView
+            style="@style/text_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_btn_login"
+            android:layout_marginStart="3dp"
+            android:text="@string/login"
+            android:textColor="@color/button_text_color_2" />
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

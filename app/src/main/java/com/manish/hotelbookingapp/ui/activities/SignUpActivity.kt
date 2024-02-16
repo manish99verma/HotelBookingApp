@@ -1,5 +1,6 @@
 package com.manish.hotelbookingapp.ui.activities
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
@@ -13,6 +14,7 @@ import com.manish.hotelbookingapp.databinding.ActivitySignUpBinding
 import com.manish.hotelbookingapp.ui.sign_in.User
 import com.manish.hotelbookingapp.ui.viewmodels.SignUpViewModel
 import com.manish.hotelbookingapp.ui.viewmodels.SignUpViewModel.Companion.RC_GOOGLE_SIGN_IN_CODE
+import com.manish.hotelbookingapp.util.ProgressDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -20,6 +22,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
     private val viewModel: SignUpViewModel by viewModels()
+
+    private var progressDialog: Dialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +68,8 @@ class SignUpActivity : AppCompatActivity() {
 
 
         viewModel.uiState.observe(this) { authModel ->
+            handleProgressDialog(authModel.showProgress)
+
             if (authModel.success) navigateToOtherActivity(viewModel.getCurrUser())
             else if (authModel.error != null && !authModel.error.consumed)
                 authModel.error.consume()?.let { pair ->
@@ -73,6 +79,19 @@ class SignUpActivity : AppCompatActivity() {
                 authModel.showAllLinkProvider.consume()?.let { pair ->
                     Log.d("TAGF", "onCreate: $pair")
                 }
+        }
+    }
+
+    private fun handleProgressDialog(visible: Boolean) {
+        if (visible) {
+            if (progressDialog == null){
+                progressDialog = ProgressDialog(this)
+            }
+            progressDialog!!.show()
+        } else {
+            progressDialog?.let {
+                it.dismiss()
+            }
         }
     }
 

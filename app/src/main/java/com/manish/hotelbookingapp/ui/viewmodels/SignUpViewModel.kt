@@ -1,6 +1,7 @@
 package com.manish.hotelbookingapp.ui.viewmodels
 
 import android.content.Intent
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -217,4 +218,25 @@ class SignUpViewModel @Inject constructor(
     }
 
     //////////////////////// Firebase Facebook Authentication Ends /////////////////////////////////
+
+
+    //////////////////////// Firebase Email Authentication Starts /////////////////////////////////
+
+    fun createUserWithEmailAndPassword(email: String, password: String) {
+        viewModelScope.launch {
+            emitUiState(showProgress = true)
+
+            safeApiCall {
+                val response = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
+                Result.Success(response!!)
+            }.also {
+                if (it is Result.Success && it.data.user != null)
+                    emitUiState(success = true)
+                else if (it is Result.Error)
+                    handleErrorStateForSignInCredential(it.exception, AuthType.EMAIL)
+            }
+        }
+    }
+
+    //////////////////////// Firebase Email Authentication Ends /////////////////////////////////
 }

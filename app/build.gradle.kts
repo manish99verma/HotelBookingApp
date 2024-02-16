@@ -78,6 +78,9 @@ dependencies {
     // Dagger
     implementation("com.google.dagger:hilt-android:$daggerVersion")
     kapt("com.google.dagger:hilt-android-compiler:$daggerVersion")
+
+    // Progress Bar
+    implementation ("com.airbnb.android:lottie:6.3.0")
 }
 
 // Allow references to generated code

@@ -1,6 +1,8 @@
 package com.manish.hotelbookingapp.ui.viewmodels
 
 import android.content.Intent
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -19,10 +21,16 @@ import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.GoogleAuthProvider
+import com.manish.hotelbookingapp.BuildConfig
 import com.manish.hotelbookingapp.HotelBookingApp
 import com.manish.hotelbookingapp.R
+import com.manish.hotelbookingapp.data.PreferenceHelper
+import com.manish.hotelbookingapp.ui.sign_in.AuthError
+import com.manish.hotelbookingapp.ui.sign_in.AuthType
+import com.manish.hotelbookingapp.ui.sign_in.AuthUiModel
+import com.manish.hotelbookingapp.ui.sign_in.ErrorType
+import com.manish.hotelbookingapp.ui.sign_in.User
 import com.manish.hotelbookingapp.util.Event
-import com.manish.hotelbookingapp.util.MaterialDialogContent
 import com.manish.hotelbookingapp.util.Result
 import com.manish.hotelbookingapp.util.safeApiCall
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -30,10 +38,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
-import com.manish.hotelbookingapp.ui.sign_in.AuthType
-import com.manish.hotelbookingapp.ui.sign_in.AuthUiModel
-import com.manish.hotelbookingapp.ui.sign_in.User
+import papaya.`in`.sendmail.SendMail
+import java.util.Timer
+import java.util.TimerTask
 import javax.inject.Inject
+import kotlin.random.Random
+import kotlin.random.nextLong
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
@@ -48,6 +58,10 @@ class SignUpViewModel @Inject constructor(
     companion object {
         const val RC_GOOGLE_SIGN_IN_CODE = 2555
         val facebook_permissions = listOf("email", "public_profile")
+        const val MINIMUM_USERNAME_LENGTH = 3
+        const val MAXIMUM_USERNAME_LENGTH = 25
+        const val MINIMUM_PASSWORD_LENGTH = 6
+        const val MAXIMUM_PASSWORD_LENGTH = 25
     }
 
     fun getCurrUser(): User? {
@@ -70,32 +84,27 @@ class SignUpViewModel @Inject constructor(
                 )
             }.also {
                 if (it is Result.Success && it.data.signInMethods != null)
-                    emitUiState(
-                        linkProvider = Event(
-                            it.data.signInMethods!! to MaterialDialogContent(
-                                R.string.select,
-                                null,
-                                R.string.user_collision,
-                                R.string.cancel,
-                                String.format(
-                                    resources.getString(R.string.auth_user_collision_message),
-                                    email
-                                )
-                            )
+                    sendErrorState(
+                        AuthType.EMAIL,
+                        ErrorType.USER_COLLISION,
+                        String.format(
+                            resources.getString(R.string.auth_user_collision_message),
+                            email
                         )
                     )
-                else sendErrorState(AuthType.EMAIL.apply { authValue = email })
+                else sendErrorState(AuthType.EMAIL, ErrorType.INTERNET)
             }
         }
     }
 
-    private suspend fun sendErrorState(authType: AuthType) {
+    private suspend fun sendErrorState(
+        authType: AuthType,
+        errorType: ErrorType? = null,
+        msg: String? = null
+    ) {
         emitUiState(
             error = Event(
-                authType to MaterialDialogContent(
-                    R.string.try_again, R.string.internet_not_working,
-                    R.string.limited_internet_connection, R.string.cancel
-                )
+                AuthError(authType, errorType, msg)
             )
         )
     }
@@ -126,12 +135,11 @@ class SignUpViewModel @Inject constructor(
 
     private suspend fun emitUiState(
         showProgress: Boolean = false,
-        error: Event<Pair<AuthType, MaterialDialogContent>>? = null,
+        error: Event<AuthError>? = null,
         success: Boolean = false,
-        linkProvider: Event<Pair<List<String>, MaterialDialogContent>>? = null
     ) = withContext(Dispatchers.Main)
     {
-        AuthUiModel(showProgress, error, success, linkProvider).also {
+        AuthUiModel(showProgress, error, success).also {
             _uiState.value = it
         }
     }
@@ -183,13 +191,10 @@ class SignUpViewModel @Inject constructor(
 
         override fun onCancel() {
             viewModelScope.launch {
-                emitUiState(
-                    error = Event(
-                        AuthType.FACEBOOK to MaterialDialogContent(
-                            R.string.try_again, R.string.operation_cancelled_content,
-                            R.string.operation_cancelled, R.string.cancel
-                        )
-                    )
+                sendErrorState(
+                    AuthType.FACEBOOK,
+                    ErrorType.CANCELLED,
+                    resources.getString(R.string.operation_cancelled_content)
                 )
             }
         }
@@ -221,20 +226,156 @@ class SignUpViewModel @Inject constructor(
 
 
     //////////////////////// Firebase Email Authentication Starts /////////////////////////////////
+    private var currOtp: Long = -1
+    private var resendButtonTime = 60 * 1000L
+    private val _timerState = MutableLiveData(0L)
+    val timerState: LiveData<Long> get() = _timerState
+    private var timer: Timer? = null
 
-    fun createUserWithEmailAndPassword(email: String, password: String) {
+    fun createUserWithEmailAndPassword(userName: String, email: String, password: String) {
         viewModelScope.launch {
             emitUiState(showProgress = true)
+            val inputError = validateInputs(userName, email, password)
+            if (inputError != null) {
+                sendErrorState(AuthType.EMAIL, ErrorType.INVALID_INPUT, inputError)
+                return@launch
+            }
 
             safeApiCall {
-                val response = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
+                val response =
+                    firebaseAuth.createUserWithEmailAndPassword(email, password).await()
                 Result.Success(response!!)
             }.also {
-                if (it is Result.Success && it.data.user != null)
+                if (it is Result.Success && it.data.user != null) {
+                    PreferenceHelper.saveUserName(userName)
                     emitUiState(success = true)
-                else if (it is Result.Error)
-                    handleErrorStateForSignInCredential(it.exception, AuthType.EMAIL)
+                } else if (it is Result.Error)
+                    sendErrorState(AuthType.EMAIL, errorType = null, it.exception.localizedMessage)
             }
+        }
+    }
+
+    fun signInWithEmailAndPassword(email: String, password: String) {
+        viewModelScope.launch {
+            emitUiState(showProgress = true)
+            val inputError = validateInputs(email = email, password = password)
+            if (inputError != null) {
+                sendErrorState(AuthType.EMAIL, ErrorType.INVALID_INPUT, inputError)
+                return@launch
+            }
+
+            safeApiCall {
+                val response =
+                    firebaseAuth.signInWithEmailAndPassword(email, password).await()
+                Result.Success(response!!)
+            }.also {
+                if (it is Result.Success && it.data.user != null) {
+                    emitUiState(success = true)
+                } else if (it is Result.Error && it.exception.message != null)
+                    sendErrorState(
+                        AuthType.EMAIL,
+                        ErrorType.WRONG_INPUT,
+                        resources.getString(R.string.invalid_input_in_sign_in)
+                    )
+            }
+        }
+    }
+
+    fun validateInputs(userName: String? = null, email: String, password: String): String? {
+        // Check Empty
+        if (userName != null && userName.isEmpty())
+            return String.format(
+                resources.getString(
+                    R.string.please_enter_your_inputType,
+                    resources.getString(R.string.username)
+                )
+            )
+
+        if (email.isEmpty())
+            return String.format(
+                resources.getString(
+                    R.string.please_enter_your_inputType,
+                    resources.getString(R.string.email)
+                )
+            )
+
+        if (password.isEmpty())
+            return resources.getString(
+                R.string.please_enter_your_inputType, resources.getString(R.string.password)
+            )
+
+        // Check validity & length
+        if (userName != null && userName.length < MINIMUM_USERNAME_LENGTH)
+            return resources.getString(
+                R.string.please_enter_a_larger_inputType,
+                resources.getString(R.string.username)
+            )
+
+        if (userName != null && userName.length > MAXIMUM_USERNAME_LENGTH)
+            return resources.getString(
+                R.string.please_enter_a_smaller_inputType,
+                resources.getString(R.string.username)
+            )
+
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches())
+            return resources.getString(
+                R.string.please_enter_a_valid_email
+            )
+
+
+        if (password.length < MINIMUM_PASSWORD_LENGTH)
+            return resources.getString(
+                R.string.please_enter_a_larger_inputType,
+                resources.getString(R.string.password)
+            )
+
+        if (password.length > MAXIMUM_PASSWORD_LENGTH)
+            return resources.getString(
+                R.string.please_enter_a_smaller_inputType,
+                resources.getString(R.string.password)
+            )
+
+        return null
+    }
+
+    fun generateAndSend(email: String) {
+        Log.d("TAGF", "generateAndSend: ")
+
+        timer?.cancel()
+        currOtp = Random.nextLong(100000L..999999L)
+        val mail = SendMail(
+            BuildConfig.EMAIL_SEND_EMAIL,
+            BuildConfig.EMAIL_SEND_PASS_KEY,
+            email,
+            "Hotel Booking App",
+            "Welcome to our hotel booking app. Your OTP is $currOtp."
+        )
+
+        mail.execute()
+
+        // Disable resend button
+        _timerState.postValue(resendButtonTime)
+        resendButtonTime *= 2
+
+        timer = Timer()
+        timer!!.scheduleAtFixedRate(object : TimerTask() {
+            override fun run() {
+                val timeLeft = (_timerState.value ?: 0) - 1000L
+                if (timeLeft > 0) {
+                    _timerState.postValue(timeLeft)
+                } else {
+                    timer?.cancel()
+                    _timerState.postValue(0L)
+                }
+            }
+        }, 1000, 1000)
+    }
+
+    fun verifyOtp(otp: String?): Boolean {
+        return try {
+            otp!!.toLong() == currOtp
+        } catch (e: Exception) {
+            false
         }
     }
 

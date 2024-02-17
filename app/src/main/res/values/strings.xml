@@ -24,6 +24,7 @@
     <string name="or_continue_with">Or continue with</string>
     <string name="verify">Verify</string>
     <string name="please_enter_the_verification_code_sent_to_example_gmail_com">Please enter the verification code sent to example@gmail.com</string>
+    <string name="please_enter_the_verification_code_sent_to_with_formatter">Please enter the verification code sent to %1$s</string>
     <string name="resend_again">Resend again</string>
     <string name="did_t_receive_code">Did\'t receive code?</string>
 
@@ -45,4 +46,12 @@
     <string name="operation_cancelled">Operation Cancelled</string>
     <string name="operation_cancelled_content">It seems like you cancel the on-going operation. You can restart the process by simply clicking Try Again.</string>
     <string name="logout">Logout</string>
+
+    <string name="please_enter_your_inputType">Please Enter Your %1$s!</string>
+    <string name="please_enter_a_smaller_inputType">Please Enter A Smaller %1$s</string>
+    <string name="please_enter_a_larger_inputType">Please Enter A Larger %1$s</string>
+    <string name="please_enter_a_valid_email">Please Enter A Valid Email</string>
+    <string name="invalid_input_in_sign_in">Please check your email and password</string>
+    <string name="wrong_otp">Wrong OTP!</string>
+    <string name="unknown_error_occurred">Unknown Error Occurred!</string>
 </resources>

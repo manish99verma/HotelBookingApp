@@ -17,6 +17,17 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        buildConfigField(
+            "String",
+            "EMAIL_SEND_PASS_KEY",
+            "${project.properties.get("email_send_pass_key")}"
+        )
+        buildConfigField(
+            "String",
+            "EMAIL_SEND_EMAIL",
+            "${project.properties.get("email_send_email")}"
+        )
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -38,6 +49,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -80,7 +92,13 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:$daggerVersion")
 
     // Progress Bar
-    implementation ("com.airbnb.android:lottie:6.3.0")
+    implementation("com.airbnb.android:lottie:6.3.0")
+
+    // Email Client
+    implementation("com.github.1902shubh:SendMail:1.0.0")
+
+    // Otp
+    implementation("com.github.aabhasr1:OtpView:v1.1.2-ktx")
 }
 
 // Allow references to generated code

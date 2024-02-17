@@ -8,7 +8,9 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.manish.hotelbookingapp.data.PreferenceHelper
 import com.manish.hotelbookingapp.databinding.ActivityMainBinding
 import com.manish.hotelbookingapp.ui.viewmodels.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels()
@@ -21,8 +23,8 @@ class MainActivity : AppCompatActivity() {
 
         PreferenceHelper.initialize(applicationContext)
 
-        // New Install
-        if (viewModel.isFirstSession()) {
+        // Check User
+        if (!viewModel.isAuthenticated()) {
             val welcomeIntent = Intent(this, WelcomeActivity::class.java)
             startActivity(welcomeIntent)
             finish()

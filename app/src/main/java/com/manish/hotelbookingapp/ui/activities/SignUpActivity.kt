@@ -4,14 +4,13 @@ import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.manish.hotelbookingapp.R
-import com.manish.hotelbookingapp.ui.sign_in.AuthType
 import com.manish.hotelbookingapp.databinding.ActivitySignUpBinding
-import com.manish.hotelbookingapp.ui.sign_in.User
+import com.manish.hotelbookingapp.ui.sign_in.AuthType
 import com.manish.hotelbookingapp.ui.viewmodels.SignUpViewModel
 import com.manish.hotelbookingapp.ui.viewmodels.SignUpViewModel.Companion.RC_GOOGLE_SIGN_IN_CODE
 import com.manish.hotelbookingapp.util.ProgressDialog
@@ -52,8 +51,25 @@ class SignUpActivity : AppCompatActivity() {
 
         // SignUp
         binding.btnContinue.setOnClickListener {
-            val intent = Intent(this, VerifyAccount::class.java)
-            startActivity(intent)
+            val userName = binding.edtUserName.text.toString().trim()
+            val email = binding.edtEmail.text.toString().trim()
+            val passWord = binding.edtPassword.text.toString()
+
+            val validityErrorMsg = viewModel.validateInputs(
+                userName, email, passWord
+            )
+
+            if (validityErrorMsg != null) {
+                Toast.makeText(this, validityErrorMsg, Toast.LENGTH_SHORT)
+                    .show()
+                return@setOnClickListener
+            } else {
+                val intent = Intent(this, VerifyAccountActivity::class.java)
+                intent.putExtra("username", userName)
+                intent.putExtra("email", email)
+                intent.putExtra("password", passWord)
+                startActivity(intent)
+            }
         }
 
         // Google Sign in
@@ -66,25 +82,32 @@ class SignUpActivity : AppCompatActivity() {
             doSocialAuth(AuthType.FACEBOOK)
         }
 
-
+        // Sign up State
         viewModel.uiState.observe(this) { authModel ->
             handleProgressDialog(authModel.showProgress)
 
-            if (authModel.success) navigateToOtherActivity(viewModel.getCurrUser())
-            else if (authModel.error != null && !authModel.error.consumed)
-                authModel.error.consume()?.let { pair ->
-                    Log.d("TAGF", "onCreate: Login Error: $pair")
+            if (authModel.success) {
+                navigateToOtherActivity()
+            } else if (authModel.authError != null && !authModel.authError.consumed) {
+                authModel.authError.consume()?.let { err ->
+                    Toast.makeText(
+                        this,
+                        err.msgString ?: resources.getString(R.string.unknown_error_occurred),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
-            else if (authModel.showAllLinkProvider != null && !authModel.showAllLinkProvider.consumed)
-                authModel.showAllLinkProvider.consume()?.let { pair ->
-                    Log.d("TAGF", "onCreate: $pair")
-                }
+            }
+        }
+
+        // Back button
+        binding.backBtn.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
         }
     }
 
     private fun handleProgressDialog(visible: Boolean) {
         if (visible) {
-            if (progressDialog == null){
+            if (progressDialog == null) {
                 progressDialog = ProgressDialog(this)
             }
             progressDialog!!.show()
@@ -95,8 +118,16 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    private fun navigateToOtherActivity(user: User?) {
-        Log.d("TAGF", "navigateToOtherActivity: $user")
+    private fun navigateToOtherActivity() {
+        val intent = Intent(
+            applicationContext,
+            MainActivity::class.java
+        )
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        startActivity(intent)
+        finish()
     }
 
     private fun doSocialAuth(authType: AuthType) {

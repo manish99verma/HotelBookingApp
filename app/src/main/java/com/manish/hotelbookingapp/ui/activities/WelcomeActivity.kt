@@ -29,7 +29,7 @@ class WelcomeActivity : AppCompatActivity() {
             startActivity(signUpIntent)
         }
 
-        binding.textBtnLogin.setOnClickListener {
+        binding.btnLogin.setOnClickListener {
             Log.d("TAGU", "onCreate: On Click Login")
 
             val signUpIntent = Intent(this, LoginActivity::class.java)

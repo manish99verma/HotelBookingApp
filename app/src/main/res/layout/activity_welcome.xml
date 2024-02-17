@@ -116,7 +116,7 @@
             style="@style/text_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/text_btn_login"
+            android:id="@+id/btn_login"
             android:layout_marginStart="3dp"
             android:text="@string/login"
             android:textColor="@color/button_text_color_2" />

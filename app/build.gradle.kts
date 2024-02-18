@@ -99,6 +99,10 @@ dependencies {
 
     // Otp
     implementation("com.github.aabhasr1:OtpView:v1.1.2-ktx")
+
+    // Round Image
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
+
 }
 
 // Allow references to generated code

@@ -61,4 +61,15 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="name">Name</string>
+    <string name="welcome_to_your_next_adventure">Welcome to your next Adventure!</string>
+    <string name="discover_the_perfect_stay_with_wanderstay">Discover the Perfect Stay with WanderStay</string>
+    <string name="where">Where?</string>
+    <string name="ex_kolkata">Ex: Kolkata</string>
+    <string name="check_in">Check-in</string>
+    <string name="dd_mm_yy">DD/MM/YY</string>
+    <string name="check_out">Check-out</string>
+    <string name="guests">Guests</string>
+    <string name="room">Room</string>
+    <string name="_1">1</string>
+    <string name="find">FIND</string>
 </resources>

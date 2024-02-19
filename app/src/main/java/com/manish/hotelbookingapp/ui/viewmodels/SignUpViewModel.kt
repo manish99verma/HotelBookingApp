@@ -1,8 +1,6 @@
 package com.manish.hotelbookingapp.ui.viewmodels
 
 import android.content.Intent
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -24,7 +22,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.manish.hotelbookingapp.BuildConfig
 import com.manish.hotelbookingapp.HotelBookingApp
 import com.manish.hotelbookingapp.R
-import com.manish.hotelbookingapp.data.PreferenceHelper
+import com.manish.hotelbookingapp.data.local_database.PreferenceHelper
 import com.manish.hotelbookingapp.ui.sign_in.AuthError
 import com.manish.hotelbookingapp.ui.sign_in.AuthType
 import com.manish.hotelbookingapp.ui.sign_in.AuthUiModel

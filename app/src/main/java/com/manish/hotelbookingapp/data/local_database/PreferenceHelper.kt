@@ -1,4 +1,4 @@
-package com.manish.hotelbookingapp.data
+package com.manish.hotelbookingapp.data.local_database
 
 import android.content.Context
 import android.content.SharedPreferences

@@ -27,6 +27,21 @@ android {
             "EMAIL_SEND_EMAIL",
             "${project.properties.get("email_send_email")}"
         )
+        buildConfigField(
+            "String",
+            "HOTELS_API_BASE_URL",
+            "${project.properties.get("base_url")}"
+        )
+        buildConfigField(
+            "String",
+            "X_API_KEY",
+            "${project.properties.get("x_api_key")}"
+        )
+        buildConfigField(
+            "String",
+            "X_API_HOST",
+            "${project.properties.get("x_api_host")}"
+        )
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -56,6 +71,7 @@ android {
 dependencies {
     val glideVersion = "4.16.0"
     val daggerVersion = "2.48"
+    val retrofitVersion = "2.9.0"
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -101,8 +117,12 @@ dependencies {
     implementation("com.github.aabhasr1:OtpView:v1.1.2-ktx")
 
     // Round Image
-    implementation ("de.hdodenhof:circleimageview:3.1.0")
+    implementation("de.hdodenhof:circleimageview:3.1.0")
 
+    // Retrofit
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
 }
 
 // Allow references to generated code

@@ -2,15 +2,18 @@ package com.manish.hotelbookingapp.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.core.view.children
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import com.manish.hotelbookingapp.BuildConfig
 import com.manish.hotelbookingapp.R
-import com.manish.hotelbookingapp.data.PreferenceHelper
+import com.manish.hotelbookingapp.data.local_database.PreferenceHelper
+import com.manish.hotelbookingapp.data.web_server.HotelsApiService
 import com.manish.hotelbookingapp.databinding.ActivityMainBinding
 import com.manish.hotelbookingapp.ui.fragment.FavoritesFragment
 import com.manish.hotelbookingapp.ui.fragment.HomeFragment
@@ -18,6 +21,15 @@ import com.manish.hotelbookingapp.ui.fragment.MyBookingsFragment
 import com.manish.hotelbookingapp.ui.fragment.ProfileFragment
 import com.manish.hotelbookingapp.ui.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import org.json.JSONObject
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 @AndroidEntryPoint
@@ -85,6 +97,63 @@ class MainActivity : AppCompatActivity() {
         selectFragment(FragmentKey.HOME)
     }
 
+    private fun test() {
+        lifecycleScope.launch(IO) {
+            Log.d("TAGH", "test: Sending request")
+            val httpClient = OkHttpClient.Builder().apply {
+                addInterceptor(HeaderInterceptor())
+            }.build()
+
+            val retrofit = Retrofit.Builder()
+                .baseUrl(BuildConfig.HOTELS_API_BASE_URL)
+                .client(httpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+
+            val service = retrofit.create(HotelsApiService::class.java)
+
+//            val response = service.getHotels(
+//                3000406907L,
+//                "en_IN",
+//                "2024-02-25",
+//                "RECOMMENDED",
+//                1,
+//                "IN",
+//                "2024-02-28",
+//                0L,
+//                1,
+//                1000000L,
+//                "SPA_ON_SITE"
+//            )
+//            Log.d("TAGH", "test: Retrofit: ${response.body()}")
+
+//            val jObjError = JSONObject(
+//                response.errorBody()!!.string()
+//            )
+//            Log.d("TAGH", "test: Retrofit: $jObjError")
+
+//            val response = service.getHotelDetails("IN", 83141779L, "en_IN")
+//            Log.d("TAGH", "test: ${response.body()}")
+//
+//            val jObjError = JSONObject(
+//                response.errorBody()!!.string()
+//            )
+//            Log.d("TAGH", "test: $jObjError")
+
+        }
+    }
+
+    class HeaderInterceptor : Interceptor {
+        override fun intercept(chain: Interceptor.Chain): Response {
+            val originalRequest: Request = chain.request()
+            val requestBuilder: Request.Builder = originalRequest.newBuilder()
+                .header("X-RapidAPI-Key", BuildConfig.X_API_KEY)
+                .header("X-RapidAPI-Host", BuildConfig.X_API_HOST)
+            val request: Request = requestBuilder.build()
+            return chain.proceed(request)
+        }
+    }
+
     private fun selectFragment(type: FragmentKey) {
         var fragment = fragmentsMap[type]!!.fragment
         if (fragment == null) {
@@ -115,6 +184,7 @@ class MainActivity : AppCompatActivity() {
                 fData.text.setTextAppearance(R.style.txt_navigation_title)
             }
         }
+        test()
     }
 
     private enum class FragmentKey {

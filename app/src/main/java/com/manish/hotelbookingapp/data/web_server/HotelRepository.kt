@@ -1,5 +1,4 @@
-package com.manish.hotelbookingapp.data
-
+package com.manish.hotelbookingapp.data.web_server
 
 class HotelRepository : HotelRepositoryInterface {
 

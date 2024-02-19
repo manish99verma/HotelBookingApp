@@ -9,8 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.manish.hotelbookingapp.R
-import com.manish.hotelbookingapp.data.PreferenceHelper
-import com.manish.hotelbookingapp.databinding.FragmentHomeBinding
+import com.manish.hotelbookingapp.data.local_database.PreferenceHelper
 import com.manish.hotelbookingapp.databinding.FragmentProfileBinding
 import com.manish.hotelbookingapp.ui.activities.WelcomeActivity
 import com.manish.hotelbookingapp.ui.viewmodels.MainViewModel

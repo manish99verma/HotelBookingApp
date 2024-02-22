@@ -37,6 +37,7 @@
 
 
     <string name="internet_not_working">Uh..oh… We\'re unable proceed, its seems like your internet connection is broke or maybe limited. Please check it and try again.</string>
+    <string name="no_internet">No internet connection!</string>
     <string name="cancel">Cancel</string>
     <string name="try_again">Try Again</string>
     <string name="limited_internet_connection">Limited Internet Connection</string>
@@ -72,4 +73,17 @@
     <string name="room">Room</string>
     <string name="_1">1</string>
     <string name="find">FIND</string>
+
+    <string name="check_in_dialog_title">Select Check-In Date</string>
+    <string name="check_out_dialog_title">Select Check-Out Date</string>
+    <string name="empty_city_name">Please enter a location or city</string>
+    <string name="location">Location</string>
+    <string name="txt_format_date_range_example"><u>24 OCT - 26 OCT</u></string>
+    <string name="txt_format_date_range"><u>%1$s</u></string>
+    <string name="txt_format_guests"><u>%1$s</u></string>
+    <string name="txt_format_guests_example"><u>3 guests</u></string>
+    <string name="search_hotel_by_name">Search Hotel By Name</string>
+    <string name="recommanded_hotels">Recommended Hotels</string>
+    <string name="business_accomodates">Business Accomodates</string>
+    <string name="night">/night</string>
 </resources>

@@ -53,6 +53,13 @@
         <item name="android:focusable">true</item>
     </style>
 
+    <style name="underlined_text" parent="@android:style/Widget.TextView">
+        <item name="fontFamily">@font/open_sans</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+    </style>
+
     <style name="normal_text_2" parent="@android:style/Widget.TextView">
         <item name="android:textSize">13sp</item>
         <item name="fontFamily">@font/roboto_bold</item>
@@ -61,6 +68,11 @@
     <style name="small_caption" parent="@android:style/Widget.TextView">
         <item name="android:textSize">15sp</item>
         <item name="fontFamily">@font/roboto</item>
+    </style>
+
+    <style name="txt_title_search_result" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/open_sans_bold</item>
     </style>
 
     <style name="text_title" parent="@android:style/Widget.TextView">
@@ -94,7 +106,6 @@
     <style name="button_text_roboto" parent="ThemeOverlay.Material3.Button">
         <item name="android:textSize">18sp</item>
         <item name="cornerRadius">10dp</item>
-        android:fontFamily="@font/roboto_medium"
         <item name="fontFamily">@font/roboto_medium</item>
         <item name="backgroundTint">@color/surface_color_1</item>
     </style>
@@ -104,6 +115,11 @@
         <item name="boxCornerRadiusBottomStart">10dp</item>
         <item name="boxCornerRadiusTopEnd">10dp</item>
         <item name="boxCornerRadiusTopStart">10dp</item>
+    </style>
+
+    <style name="card_editable" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/editable_card_bg</item>
+        <item name="cardCornerRadius">10dp</item>
     </style>
 
 </resources>

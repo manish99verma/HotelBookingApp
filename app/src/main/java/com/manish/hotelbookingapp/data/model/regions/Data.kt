@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class Data(
     @SerializedName("@type")
     val atType: String,
-    val cityId: String,
+    val cityId: String?,
     val coordinates: Coordinates,
     val essId: EssId,
     val gaiaId: String,

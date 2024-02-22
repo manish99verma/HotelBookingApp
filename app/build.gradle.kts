@@ -72,6 +72,7 @@ dependencies {
     val glideVersion = "4.16.0"
     val daggerVersion = "2.48"
     val retrofitVersion = "2.9.0"
+    val nav_version = "2.7.7"
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

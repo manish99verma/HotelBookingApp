@@ -21,4 +21,5 @@
     <color name="txt_navigation_txt">#7F7F7F</color>
 
     <color name="otp_box_stroke">#4F6C6868</color>
+    <color name="editable_card_bg">#1F007EF2</color>
 </resources>

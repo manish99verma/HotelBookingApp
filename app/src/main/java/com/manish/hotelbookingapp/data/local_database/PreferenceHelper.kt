@@ -8,6 +8,7 @@ object PreferenceHelper {
     private lateinit var main: SharedPreferences
     private const val KEY_SESSION_COUNT = "key_session_count"
     private const val KEY_USERNAME = "key_username"
+    private const val KEY_FAVORITES = "favorites"
 
     fun initialize(context: Context) {
         main = PreferenceManager.getDefaultSharedPreferences(context)
@@ -27,4 +28,11 @@ object PreferenceHelper {
     fun getUserName(): String? {
         return main.getString(KEY_USERNAME, null)
     }
+
+    fun updateFavorites(favorites: Set<String>) {
+        main.edit().putStringSet(KEY_FAVORITES, favorites).apply()
+    }
+
+    fun getFavorites(): MutableSet<String>? = main.getStringSet(KEY_FAVORITES, null)
+
 }

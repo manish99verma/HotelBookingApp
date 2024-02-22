@@ -7,7 +7,6 @@ data class AuthUiModel(
     val showProgress: Boolean,
     val authError: Event<AuthError>?,
     val success: Boolean,
-//    val showAllLinkProvider: Event<Pair<List<String>, MaterialDialogContent>>?
 )
 
 data class AuthError(

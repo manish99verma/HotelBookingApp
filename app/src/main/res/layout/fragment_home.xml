@@ -139,12 +139,17 @@
                     app:layout_constraintTop_toBottomOf="@+id/ll6">
 
                     <RelativeLayout
+                        android:id="@+id/rl_checkIn"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:background="@drawable/input_field_bg">
+                        android:background="@drawable/input_field_bg"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
 
                         <TextView
+                            android:id="@+id/txt_check_in"
                             style="@style/small_caption"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -154,24 +159,32 @@
                             android:textColor="@color/txt_navigation_txt" />
 
                         <ImageView
+                            android:id="@+id/calendar_check_in"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"
                             android:layout_marginEnd="8dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:clickable="true"
+                            android:focusable="true"
                             android:src="@drawable/calendar_ic" />
 
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:id="@+id/rl_end_date"
+                        android:id="@+id/rl_chek_out"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginStart="20dp"
                         android:layout_weight="1"
-                        android:background="@drawable/input_field_bg">
+                        android:background="@drawable/input_field_bg"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
 
                         <TextView
+                            android:id="@+id/txt_check_out"
                             style="@style/small_caption"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -181,11 +194,15 @@
                             android:textColor="@color/txt_navigation_txt" />
 
                         <ImageView
+                            android:id="@+id/calendar_check_out"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"
                             android:layout_marginEnd="8dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:clickable="true"
+                            android:focusable="true"
                             android:src="@drawable/calendar_ic" />
 
                     </RelativeLayout>
@@ -239,24 +256,36 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@drawable/input_field_bg"
-                        android:gravity="center_vertical"
-                        android:paddingHorizontal="12dp">
+                        android:gravity="center_vertical">
 
                         <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:id="@+id/minus_guests"
+                            android:layout_width="35dp"
+                            android:layout_height="match_parent"
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
+                            android:layout_marginStart="6dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:padding="6dp"
                             android:src="@drawable/ic_mius" />
 
                         <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
+                            android:id="@+id/plus_guests"
+                            android:layout_width="35dp"
+                            android:layout_height="match_parent"
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"
+                            android:layout_marginEnd="4dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:padding="10dp"
                             android:src="@drawable/ic_plus" />
 
                         <TextView
+                            android:id="@+id/txt_guests_count"
                             style="@style/small_caption"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -272,25 +301,37 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="20dp"
                         android:layout_weight="1"
-                        android:background="@drawable/input_field_bg"
-                        android:paddingHorizontal="12dp">
+                        android:background="@drawable/input_field_bg">
 
 
                         <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:id="@+id/minus_rooms"
+                            android:layout_width="35dp"
+                            android:layout_height="match_parent"
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
+                            android:layout_marginStart="6dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:padding="6dp"
                             android:src="@drawable/ic_mius" />
 
                         <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
+                            android:id="@+id/plus_rooms"
+                            android:layout_width="35dp"
+                            android:layout_height="match_parent"
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"
+                            android:layout_marginEnd="4dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:padding="10dp"
                             android:src="@drawable/ic_plus" />
 
                         <TextView
+                            android:id="@+id/txt_rooms_count"
                             style="@style/small_caption"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

@@ -16,7 +16,9 @@ import com.manish.hotelbookingapp.data.model.hotel_search.Property
 import com.manish.hotelbookingapp.databinding.FragmentSearchResultBinding
 import com.manish.hotelbookingapp.ui.adapters.HotelSearchResultAdapter
 import com.manish.hotelbookingapp.ui.dialogs.FilterDialog
+import com.manish.hotelbookingapp.ui.models.FilterResult
 import com.manish.hotelbookingapp.ui.models.SearchFragmentUiModel
+import com.manish.hotelbookingapp.ui.models.Sort
 import com.manish.hotelbookingapp.ui.viewmodels.MainViewModel
 import com.manish.hotelbookingapp.util.Utils
 import okio.Utf8
@@ -83,8 +85,22 @@ class SearchResultFragment : Fragment() {
 
         // Filter Dialog
         binding.imgFilters.setOnClickListener {
-            val filterDialog = FilterDialog()
-            filterDialog.show(parentFragmentManager,"MyFilterDialogTAG")
+            val filterDialog = FilterDialog(
+                listOf(
+                    Sort.REVIEW,
+                    Sort.RECOMMENDED,
+                    Sort.DISTANCE,
+                    Sort.PRICE_LOW_TO_HIGH,
+                    Sort.PROPERTY_CLASS,
+                    Sort.PRICE_RELEVANT
+                ), FilterResult(Sort.REVIEW, 3, Pair(0, 100000))
+            ) { result ->
+
+            }
+
+            filterDialog.show(
+                parentFragmentManager, "MyFilterDialogTAG"
+            )
         }
     }
 

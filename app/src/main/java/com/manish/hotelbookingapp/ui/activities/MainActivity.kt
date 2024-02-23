@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -19,6 +20,7 @@ import com.manish.hotelbookingapp.ui.fragment.FavoritesFragment
 import com.manish.hotelbookingapp.ui.fragment.HomeFragment
 import com.manish.hotelbookingapp.ui.fragment.MyBookingsFragment
 import com.manish.hotelbookingapp.ui.fragment.ProfileFragment
+import com.manish.hotelbookingapp.ui.fragment.SearchResultFragment
 import com.manish.hotelbookingapp.ui.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers.IO
@@ -36,7 +38,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels()
-    private lateinit var fragmentsMap: Map<FragmentKey, FragmentData>
+    private lateinit var navigationItems: List<NavigationItem>
+    private var searchResultOpened = false
+    private var selectedFragment = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,27 +57,44 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
 
-        // Fragments
-        fragmentsMap = mapOf(
-            FragmentKey.HOME to FragmentData(
+        initNavigationBar()
+
+        // Back press
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (searchResultOpened) {
+                    searchResultOpened = false
+                    selectFragment(HomeFragment())
+                } else if (selectedFragment == 0) {
+                    finish()
+                } else {
+                    onClickNavigationBar(0)
+                }
+            }
+        })
+    }
+
+    private fun initNavigationBar() {
+        navigationItems = listOf(
+            NavigationItem(
                 binding.imageHome,
                 binding.txtHome,
                 R.drawable.home,
                 R.drawable.home_selected
             ),
-            FragmentKey.FAVORITES to FragmentData(
+            NavigationItem(
                 binding.imageFavorites,
                 binding.txtFavorites,
                 R.drawable.favorites,
                 R.drawable.favorites_selected
             ),
-            FragmentKey.BOOKINGS to FragmentData(
+            NavigationItem(
                 binding.imageBooking,
                 binding.txtBooking,
                 R.drawable.bookings,
                 R.drawable.bookings_selected
             ),
-            FragmentKey.PROFILE to FragmentData(
+            NavigationItem(
                 binding.imageProfile,
                 binding.txtProfile,
                 R.drawable.profile,
@@ -81,124 +102,69 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
+        // Home
         binding.layoutHome.setOnClickListener {
-            selectFragment(FragmentKey.HOME)
+            onClickNavigationBar(0)
         }
-        binding.layoutBookings.setOnClickListener {
-            selectFragment(FragmentKey.BOOKINGS)
-        }
+        // Favorites
         binding.layoutFavorites.setOnClickListener {
-            selectFragment(FragmentKey.FAVORITES)
+            onClickNavigationBar(1)
         }
+        // Bookings
+        binding.layoutBookings.setOnClickListener {
+            onClickNavigationBar(2)
+        }
+        // Profile
         binding.layoutProfile.setOnClickListener {
-            selectFragment(FragmentKey.PROFILE)
+            onClickNavigationBar(3)
+        }
+        // Search Result
+        viewModel.setNavigationCallback { id ->
+            Log.d("TAGH", "Opening search result for $id")
+            selectFragment(SearchResultFragment())
+            searchResultOpened = true
         }
 
-        selectFragment(FragmentKey.HOME)
+        onClickNavigationBar(0)
     }
 
-    private fun test() {
-        lifecycleScope.launch(IO) {
-            Log.d("TAGH", "test: Sending request")
-            val httpClient = OkHttpClient.Builder().apply {
-                addInterceptor(HeaderInterceptor())
-            }.build()
+    private fun onClickNavigationBar(index: Int) {
+        Log.d("TAGH", "onClickNavigationBar: $index")
+        when (index) {
+            0 -> selectFragment(HomeFragment())
+            1 -> selectFragment(FavoritesFragment())
+            2 -> selectFragment(MyBookingsFragment())
+            3 -> selectFragment(ProfileFragment())
+        }
 
-            val retrofit = Retrofit.Builder()
-                .baseUrl(BuildConfig.HOTELS_API_BASE_URL)
-                .client(httpClient)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
+        navigationItems.forEachIndexed { i, item ->
+            item.changeSelection(i == index)
+        }
+        selectedFragment = index
+    }
 
-            val service = retrofit.create(HotelsApiService::class.java)
-
-//            val response = service.getHotels(
-//                3000406907L,
-//                "en_IN",
-//                "2024-02-25",
-//                "RECOMMENDED",
-//                1,
-//                "IN",
-//                "2024-02-28",
-//                0L,
-//                1,
-//                1000000L,
-//                "SPA_ON_SITE"
-//            )
-//            Log.d("TAGH", "test: Retrofit: ${response.body()}")
-
-//            val jObjError = JSONObject(
-//                response.errorBody()!!.string()
-//            )
-//            Log.d("TAGH", "test: Retrofit: $jObjError")
-
-//            val response = service.getHotelDetails("IN", 83141779L, "en_IN")
-//            Log.d("TAGH", "test: ${response.body()}")
-//
-//            val jObjError = JSONObject(
-//                response.errorBody()!!.string()
-//            )
-//            Log.d("TAGH", "test: $jObjError")
-
+    private fun selectFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.fragment_container, fragment)
+            commit()
         }
     }
 
-    class HeaderInterceptor : Interceptor {
-        override fun intercept(chain: Interceptor.Chain): Response {
-            val originalRequest: Request = chain.request()
-            val requestBuilder: Request.Builder = originalRequest.newBuilder()
-                .header("X-RapidAPI-Key", BuildConfig.X_API_KEY)
-                .header("X-RapidAPI-Host", BuildConfig.X_API_HOST)
-            val request: Request = requestBuilder.build()
-            return chain.proceed(request)
-        }
-    }
-
-    private fun selectFragment(type: FragmentKey) {
-        var fragment = fragmentsMap[type]!!.fragment
-        if (fragment == null) {
-            fragment = when (type) {
-                FragmentKey.HOME -> HomeFragment()
-                FragmentKey.BOOKINGS -> MyBookingsFragment()
-                FragmentKey.FAVORITES -> FavoritesFragment()
-                else -> ProfileFragment()
-            }
-
-            fragmentsMap[type]!!.fragment = fragment
-        }
-
-        // Replace the fragment
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, fragment)
-            .commit()
-
-        // Focus Selected
-        fragmentsMap.forEach { currType, fData ->
-            if (currType == type) {
-                fData.icon.setImageResource(fData.selectedIcon)
-                fData.text.setTextColor(getColor(R.color.surface_color_1))
-                fData.text.setTextAppearance(R.style.txt_navigation_title_selected)
-            } else {
-                fData.icon.setImageResource(fData.normalIcon)
-                fData.text.setTextColor(getColor(R.color.txt_navigation_txt))
-                fData.text.setTextAppearance(R.style.txt_navigation_title)
-            }
-        }
-        test()
-    }
-
-    private enum class FragmentKey {
-        HOME,
-        FAVORITES,
-        BOOKINGS,
-        PROFILE
-    }
-
-    private data class FragmentData(
-        val icon: ImageView,
+    data class NavigationItem(
+        val image: ImageView,
         val text: TextView,
-        val normalIcon: Int,
-        val selectedIcon: Int,
-        var fragment: Fragment? = null
-    )
+        val normalImage: Int,
+        val selectedImage: Int
+    ) {
+        fun changeSelection(isSelected: Boolean) {
+            if (isSelected) {
+                image.setImageResource(selectedImage)
+                text.setTextColor(text.context.getColor(R.color.surface_color_1))
+            } else {
+                image.setImageResource(normalImage)
+                text.setTextColor(text.context.getColor(R.color.txt_navigation_txt))
+            }
+        }
+    }
+
 }

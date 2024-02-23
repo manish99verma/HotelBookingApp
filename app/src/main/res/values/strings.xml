@@ -86,4 +86,11 @@
     <string name="recommanded_hotels">Recommended Hotels</string>
     <string name="business_accomodates">Business Accomodates</string>
     <string name="night">/night</string>
+    <string name="filter">Filter</string>
+    <string name="reset">Reset</string>
+    <string name="sort_by">Sort By</string>
+    <string name="ratings">Ratings</string>
+    <string name="_3">3</string>
+    <string name="_2">2</string>
+    <string name="apply">APPLY</string>
 </resources>

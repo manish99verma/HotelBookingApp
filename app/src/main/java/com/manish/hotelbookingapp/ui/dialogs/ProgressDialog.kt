@@ -1,4 +1,4 @@
-package com.manish.hotelbookingapp.util
+package com.manish.hotelbookingapp.ui.dialogs
 
 import android.app.Dialog
 import android.content.Context

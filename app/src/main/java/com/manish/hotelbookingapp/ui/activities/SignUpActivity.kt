@@ -13,7 +13,7 @@ import com.manish.hotelbookingapp.databinding.ActivitySignUpBinding
 import com.manish.hotelbookingapp.ui.sign_in.AuthType
 import com.manish.hotelbookingapp.ui.viewmodels.SignUpViewModel
 import com.manish.hotelbookingapp.ui.viewmodels.SignUpViewModel.Companion.RC_GOOGLE_SIGN_IN_CODE
-import com.manish.hotelbookingapp.util.ProgressDialog
+import com.manish.hotelbookingapp.ui.dialogs.ProgressDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 

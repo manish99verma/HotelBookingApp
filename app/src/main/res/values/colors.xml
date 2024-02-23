@@ -7,6 +7,7 @@
     <color name="status_bar_color">#0472D8</color>
 
     <color name="surface_color_1">#007EF2</color>
+    <color name="seekbar_color">#B3007EF2</color>
     <color name="surface_color_caption">#CF000000</color>
     <color name="surface_color_body">#99000000</color>
     <color name="button_text_color_1">@color/white</color>

@@ -15,6 +15,7 @@ import com.manish.hotelbookingapp.R
 import com.manish.hotelbookingapp.data.model.hotel_search.Property
 import com.manish.hotelbookingapp.databinding.FragmentSearchResultBinding
 import com.manish.hotelbookingapp.ui.adapters.HotelSearchResultAdapter
+import com.manish.hotelbookingapp.ui.dialogs.FilterDialog
 import com.manish.hotelbookingapp.ui.models.SearchFragmentUiModel
 import com.manish.hotelbookingapp.ui.viewmodels.MainViewModel
 import com.manish.hotelbookingapp.util.Utils
@@ -79,6 +80,12 @@ class SearchResultFragment : Fragment() {
 
         binding.rvBuisnessAccomodates.adapter = adapterBusiness
         binding.rvRecommandedHotels.adapter = adapterRecommended
+
+        // Filter Dialog
+        binding.imgFilters.setOnClickListener {
+            val filterDialog = FilterDialog()
+            filterDialog.show(parentFragmentManager,"MyFilterDialogTAG")
+        }
     }
 
     private fun setUpRecyclerView() {

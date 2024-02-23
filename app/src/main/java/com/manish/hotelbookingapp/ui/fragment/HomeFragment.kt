@@ -1,6 +1,8 @@
 package com.manish.hotelbookingapp.ui.fragment
 
+import android.app.DatePickerDialog
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,16 +11,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.google.android.material.datepicker.CalendarConstraints
-import com.google.android.material.datepicker.CalendarConstraints.DateValidator
-import com.google.android.material.datepicker.DateValidatorPointForward
-import com.google.android.material.datepicker.MaterialDatePicker
+import androidx.lifecycle.LifecycleOwner
 import com.manish.hotelbookingapp.R
 import com.manish.hotelbookingapp.databinding.FragmentHomeBinding
 import com.manish.hotelbookingapp.ui.viewmodels.MainViewModel
-import com.manish.hotelbookingapp.util.ProgressDialog
+import com.manish.hotelbookingapp.ui.dialogs.ProgressDialog
 import java.util.Calendar
 import java.util.Locale
+
 
 class HomeFragment : Fragment() {
     private val homeViewModel: MainViewModel by activityViewModels()
@@ -28,6 +28,12 @@ class HomeFragment : Fragment() {
     private var guestsCount = 0
     private var roomsCount = 0
     private var progressDialog: Dialog? = null
+    private lateinit var context: Context
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        this.context = context
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,18 +49,19 @@ class HomeFragment : Fragment() {
 
         // Check In
         binding.calendarCheckIn.setOnClickListener {
-            showCalendar(true)
+//            showCalendar(true)
+            showDatePickerDialog(true)
         }
         binding.rlCheckIn.setOnClickListener {
-            showCalendar(true)
+            showDatePickerDialog(true)
         }
 
         // Check Out
         binding.calendarCheckOut.setOnClickListener {
-            showCalendar(false)
+            showDatePickerDialog(false)
         }
         binding.rlChekOut.setOnClickListener {
-            showCalendar(false)
+            showDatePickerDialog(false)
         }
 
         // Guests
@@ -79,13 +86,13 @@ class HomeFragment : Fragment() {
         binding.btnContinue.setOnClickListener {
             validateInputAndSearch()
         }
-        homeViewModel.citySearchResult.observe(requireActivity()) {
+        homeViewModel.citySearchResult.observe(context as LifecycleOwner) {
             Log.d("TAGH", "onViewCreated: res: $it")
             handleProgressDialog(it.searching)
 
             if (it.error != null) {
                 it.error?.consume()?.let { msg ->
-                    Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT)
+                    Toast.makeText(context, msg, Toast.LENGTH_SHORT)
                         .show()
                 }
             } else if (it.cityCode != null) {
@@ -111,7 +118,7 @@ class HomeFragment : Fragment() {
         }
 
         if (msg != null) {
-            Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT)
+            Toast.makeText(context, msg, Toast.LENGTH_SHORT)
                 .show()
         } else {
             homeViewModel.getCityId(
@@ -127,13 +134,11 @@ class HomeFragment : Fragment() {
     private fun handleProgressDialog(visible: Boolean) {
         if (visible) {
             if (progressDialog == null) {
-                progressDialog = ProgressDialog(requireContext())
+                progressDialog = ProgressDialog(context)
             }
             progressDialog!!.show()
         } else {
-            progressDialog?.let {
-                it.dismiss()
-            }
+            progressDialog?.dismiss()
         }
     }
 
@@ -185,7 +190,7 @@ class HomeFragment : Fragment() {
         binding.txtRoomsCount.text = roomsCount.toString()
     }
 
-    private fun showCalendar(isCheckIn: Boolean) {
+    private fun showDatePickerDialog(isCheckIn: Boolean) {
         val title = resources.getString(
             if (isCheckIn)
                 R.string.check_in_dialog_title
@@ -193,58 +198,49 @@ class HomeFragment : Fragment() {
                 R.string.check_out_dialog_title
         )
 
-        // Build constraints.
-        val currTime = System.currentTimeMillis()
-        val calendar = Calendar.getInstance(Locale.getDefault())
-        calendar[Calendar.MONTH] = Calendar.DECEMBER
+        val calendar = Calendar.getInstance()
+        val y = calendar[Calendar.YEAR]
+        val m = calendar[Calendar.MONTH]
+        val d = calendar[Calendar.DAY_OF_MONTH]
+        val datePickerDialog = DatePickerDialog(
+            context,
+            { _, year, month, dayOfMonth ->
+                val cal = Calendar.getInstance(Locale.getDefault())
+                cal[Calendar.DAY_OF_MONTH] = dayOfMonth
+                cal[Calendar.MONTH] = month
+                cal[Calendar.YEAR] = year
 
-        val dateValidator: DateValidator = DateValidatorPointForward.now()
-        val constraintsBuilder =
-            CalendarConstraints.Builder()
-                .setOpenAt(currTime)
-                .setStart(currTime)
-                .setEnd(calendar.timeInMillis)
-                .setValidator(dateValidator)
+                val msg = buildString {
+                    append(dayOfMonth)
+                    append('/')
+                    append(
+                        if ((month + 1) < 10)
+                            "0${month + 1}"
+                        else
+                            month + 1
+                    )
+                    append('/')
+                    append(year)
+                }
 
-        // Build Dialog
-        val datePicker =
-            MaterialDatePicker.Builder.datePicker()
-                .setTitleText(title)
-                .setInputMode(MaterialDatePicker.INPUT_MODE_CALENDAR)
-                .setCalendarConstraints(constraintsBuilder.build())
-                .build()
+                if (isCheckIn) {
+                    binding.txtCheckIn.text = msg
+                    checkInDate = cal
+                } else {
+                    binding.txtCheckOut.text = msg
+                    checkOutDate = cal
+                }
+            },
+            y, m, d
+        )
 
-        // Date Result
-        datePicker.addOnPositiveButtonClickListener {
-            val cal = Calendar.getInstance(Locale.getDefault())
-            cal.timeInMillis = it
-            val day = cal.get(Calendar.DAY_OF_MONTH)
-            val month = cal.get(Calendar.MONTH) + 1
-            val year = cal.get(Calendar.YEAR)
+        // Constraints
+        datePickerDialog.datePicker.minDate = calendar.timeInMillis
 
-            val msg = buildString {
-                append(day)
-                append('/')
-                append(
-                    if (month < 10)
-                        "0$month"
-                    else
-                        month
-                )
-                append('/')
-                append(year)
-            }
-
-            if (isCheckIn) {
-                binding.txtCheckIn.text = msg
-                checkInDate = cal
-            } else {
-                binding.txtCheckOut.text = msg
-                checkOutDate = cal
-            }
-        }
-
-        datePicker.show(requireActivity().supportFragmentManager, null)
+        val temp = Calendar.getInstance()
+        temp[Calendar.MONTH] = Calendar.DECEMBER
+        datePickerDialog.datePicker.maxDate = temp.timeInMillis
+        datePickerDialog.show()
     }
 
     companion object {

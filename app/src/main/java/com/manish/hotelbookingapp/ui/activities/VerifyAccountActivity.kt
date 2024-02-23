@@ -4,7 +4,6 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -12,9 +11,8 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.manish.hotelbookingapp.R
 import com.manish.hotelbookingapp.databinding.ActivityVerifyAccountBinding
-import com.manish.hotelbookingapp.ui.sign_in.User
 import com.manish.hotelbookingapp.ui.viewmodels.SignUpViewModel
-import com.manish.hotelbookingapp.util.ProgressDialog
+import com.manish.hotelbookingapp.ui.dialogs.ProgressDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 

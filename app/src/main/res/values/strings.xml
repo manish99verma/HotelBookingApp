@@ -94,4 +94,6 @@
     <string name="_2">2</string>
     <string name="apply">APPLY</string>
     <string name="no_offer">No Offer</string>
+    <string name="favorite">Favorite</string>
+    <string name="your_favorite_hotels_will_appear_here">Your favorite Hotels will appear here</string>
 </resources>

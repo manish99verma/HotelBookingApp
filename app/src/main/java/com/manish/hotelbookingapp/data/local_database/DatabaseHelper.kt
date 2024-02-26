@@ -13,6 +13,9 @@ class DatabaseHelper(daoHotelsDao: HotelsDao) {
     suspend fun getFavoritesList(): List<Property> {
         return database.getFavoritesList()
     }
+     fun getFavoritesListAsync(): LiveData<List<Property>> {
+        return database.getFavoritesListAsync()
+    }
 
     suspend fun addToFavorites(property: Property) {
         database.addToFavorites(property)

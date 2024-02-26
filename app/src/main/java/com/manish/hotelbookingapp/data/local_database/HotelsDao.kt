@@ -18,4 +18,7 @@ interface HotelsDao {
 
     @Query("SELECT * FROM hotel_search_result_property")
     suspend fun getFavoritesList(): List<Property>
+
+    @Query("SELECT * FROM hotel_search_result_property")
+    fun getFavoritesListAsync(): LiveData<List<Property>>
 }

@@ -1,27 +1,16 @@
 package com.manish.hotelbookingapp.data.model.hotel_search
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "hotel_search_result_property")
 data class Property(
-    val __typename: String,
-    val availability: Availability,
-    val destinationInfo: DestinationInfo,
-    val featuredMessages: List<Any>,
+    @PrimaryKey
     val id: String,
-    val legalDisclaimer: Any,
-    val listingFooter: Any,
-    val mapMarker: MapMarker,
-    val name: String,
-    val neighborhood: Neighborhood,
-    val offerBadge: OfferBadge,
-    val offerSummary: OfferSummary,
-    val pinnedDetails: Any,
-    val price: Price,
-    val priceAfterLoyaltyPointsApplied: PriceAfterLoyaltyPointsApplied,
-    val priceMetadata: PriceMetadata,
-    val propertyFees: List<Any>,
-    val propertyImage: PropertyImage,
-    val regionId: String,
-    val reviews: Reviews,
-    val saveTripItem: Any,
-    val star: Any,
-    val supportingMessages: Any
+    val propertyImage: PropertyImage?,
+    val offerBadge: OfferBadge?,
+    val reviews: PropertyReviewsSummary?,
+    val name: String?,
+    val destinationInfo: PropertyDestinationInfo?,
+    val price: PropertyPrice?
 )

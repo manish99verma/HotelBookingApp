@@ -27,7 +27,8 @@ interface HotelsApiService {
         @Query("price_min") price_min: Long,
         @Query("page_no") page_no: Int,
         @Query("price_max") price_max: Long,
-        @Query("amenities") amenities: String
+        @Query("amenities") amenities: String,
+        @Query("loading_type") loadingType:String = "HOTEL,HOSTEL,APART_HOTEL"
     ): Response<HotelSearchResult>
 
     @GET("hotels/details")

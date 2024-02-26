@@ -4,11 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="10dp"
-    android:layout_marginEnd="16dp"
     android:layout_marginVertical="3dp"
     android:layout_marginStart="1dp"
+    android:layout_marginEnd="16dp"
+    app:cardCornerRadius="10dp"
     app:cardElevation="3dp"
+    app:cardBackgroundColor="@color/white"
     app:strokeWidth="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,17 +32,17 @@
                 android:id="@+id/img_thumbnail"
                 android:layout_width="197dp"
                 android:layout_height="134dp"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/test_hotel" />
+                android:scaleType="centerCrop" />
         </com.google.android.material.card.MaterialCardView>
 
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_offer"
-            app:cardBackgroundColor="@color/editable_card_bg"
-            app:cardCornerRadius="10dp"            android:layout_width="wrap_content"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
+            app:cardBackgroundColor="@color/editable_card_bg"
+            app:cardCornerRadius="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/card1"
             app:layout_goneMarginTop="8dp"
@@ -61,10 +62,11 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_rating"
-            app:cardBackgroundColor="@color/editable_card_bg"
-            app:cardCornerRadius="10dp"            android:layout_width="wrap_content"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            app:cardBackgroundColor="@color/editable_card_bg"
+            app:cardCornerRadius="10dp"
             app:layout_constraintStart_toEndOf="@+id/card_offer"
             app:layout_constraintTop_toTopOf="@+id/card_offer"
             app:strokeWidth="0dp">
@@ -86,7 +88,7 @@
                     style="@style/underlined_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
+                    android:layout_marginStart="5dp"
                     android:textColor="@color/surface_color_1"
                     tools:text="4.5" />
             </LinearLayout>
@@ -101,10 +103,10 @@
             android:clickable="true"
             android:focusable="true"
             android:padding="2dp"
-            app:srcCompat="@drawable/ic_heart"
             app:layout_constraintBottom_toBottomOf="@+id/card_rating"
             app:layout_constraintEnd_toEndOf="@+id/card1"
-            app:layout_constraintTop_toTopOf="@+id/card_rating" />
+            app:layout_constraintTop_toTopOf="@+id/card_rating"
+            app:srcCompat="@drawable/ic_heart" />
 
         <TextView
             android:id="@+id/txt_display_name"
@@ -112,6 +114,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginTop="10dp"
+            android:maxWidth="197dp"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:fontFamily="@font/roboto_bold"
             android:textColor="@color/surface_color_caption"
             android:textSize="14sp"
@@ -142,13 +147,13 @@
             tools:text="Bali, Indonesia" />
 
         <TextView
+            android:id="@+id/txt_price_range"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/roboto_bold"
             android:textColor="@color/surface_color_1"
             android:textSize="11sp"
-            android:id="@+id/txt_price_range"
             app:layout_constraintStart_toStartOf="@+id/imageView3"
             app:layout_constraintTop_toBottomOf="@id/txt_location"
             tools:text="$200-$500" />

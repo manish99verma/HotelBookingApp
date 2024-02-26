@@ -100,10 +100,10 @@
         android:layout_marginTop="8dp">
 
         <LinearLayout
+            android:id="@+id/rl_1"
             android:layout_width="50dp"
             android:layout_height="45dp"
             android:layout_gravity="center"
-            android:id="@+id/rl_1"
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="@drawable/input_field_bg"
@@ -127,10 +127,10 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/rl_2"
             android:layout_width="50dp"
             android:layout_height="45dp"
             android:layout_gravity="center"
-            android:id="@+id/rl_2"
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="@drawable/input_field_bg"
@@ -154,13 +154,13 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/rl_3"
             android:layout_width="50dp"
             android:layout_height="45dp"
             android:layout_gravity="center"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:id="@+id/rl_3"
-            android:background="@drawable/input_field_bg"
+            android:background="@drawable/rating_bg_seleced"
             android:gravity="center">
 
             <TextView
@@ -169,7 +169,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_bold"
                 android:text="@string/_3"
-                android:textColor="@color/txt_navigation_txt"
+                android:textColor="@color/white"
                 android:textSize="17sp" />
 
             <ImageView
@@ -181,11 +181,11 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/rl_4"
             android:layout_width="50dp"
             android:layout_height="45dp"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:id="@+id/rl_4"
             android:layout_weight="1"
             android:background="@drawable/input_field_bg"
             android:gravity="center">
@@ -208,11 +208,11 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/rl_5"
             android:layout_width="50dp"
             android:layout_height="45dp"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:id="@+id/rl_5"
             android:layout_weight="1"
             android:background="@drawable/input_field_bg"
             android:gravity="center">
@@ -255,8 +255,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/txt_price_range"
         android:layout_marginTop="8dp"
-        android:valueFrom="0.0"
-        android:valueTo="100.0"
+        android:stepSize="100"
+        android:valueFrom="500"
+        android:valueTo="10000"
+        app:tickVisible="false"
         app:values="@array/initial_slider_values" />
 
     <TextView

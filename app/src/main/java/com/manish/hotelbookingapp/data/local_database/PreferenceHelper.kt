@@ -3,6 +3,7 @@ package com.manish.hotelbookingapp.data.local_database
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
+import com.manish.hotelbookingapp.data.model.hotel_search.Property
 
 object PreferenceHelper {
     private lateinit var main: SharedPreferences

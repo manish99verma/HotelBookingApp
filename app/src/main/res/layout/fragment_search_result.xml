@@ -17,7 +17,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
-            android:paddingBottom="12dp">
+            android:layout_marginBottom="20dp"
+            android:paddingBottom="20dp">
 
             <TextView
                 android:id="@+id/textView3"
@@ -183,6 +184,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
+                app:fastScrollEnabled="false"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintStart_toStartOf="parent"
@@ -198,6 +200,7 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/business_accomodates"
                 android:textColor="@color/surface_color_1"
+                android:nestedScrollingEnabled="true"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_recommanded_hotels" />
 
@@ -211,8 +214,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView6"
                 tools:itemCount="10"
+                android:nestedScrollingEnabled="true"
+                app:fastScrollEnabled="false"
                 tools:listitem="@layout/hotel_overview_item" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

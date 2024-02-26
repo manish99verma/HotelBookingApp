@@ -20,27 +20,27 @@ android {
         buildConfigField(
             "String",
             "EMAIL_SEND_PASS_KEY",
-            "${project.properties.get("email_send_pass_key")}"
+            "${project.properties["email_send_pass_key"]}"
         )
         buildConfigField(
             "String",
             "EMAIL_SEND_EMAIL",
-            "${project.properties.get("email_send_email")}"
+            "${project.properties["email_send_email"]}"
         )
         buildConfigField(
             "String",
             "HOTELS_API_BASE_URL",
-            "${project.properties.get("base_url")}"
+            "${project.properties["base_url"]}"
         )
         buildConfigField(
             "String",
             "X_API_KEY",
-            "${project.properties.get("x_api_key")}"
+            "${project.properties["x_api_key"]}"
         )
         buildConfigField(
             "String",
             "X_API_HOST",
-            "${project.properties.get("x_api_host")}"
+            "${project.properties["x_api_host"]}"
         )
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -72,7 +72,8 @@ dependencies {
     val glideVersion = "4.16.0"
     val daggerVersion = "2.48"
     val retrofitVersion = "2.9.0"
-    val nav_version = "2.7.7"
+    val roomVersion = "2.6.1"
+    val coroutineVersion = "1.7.3"
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -124,6 +125,15 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
+
+    // Room
+    implementation ("androidx.room:room-runtime:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
+    implementation ("androidx.room:room-ktx:$roomVersion")
+
+    // Coroutines
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVersion")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion")
 }
 
 // Allow references to generated code

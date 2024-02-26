@@ -1,14 +1,15 @@
 package com.manish.hotelbookingapp.di
 
 import android.content.Context
+import androidx.room.Room
 import com.google.firebase.auth.FirebaseAuth
 import com.manish.hotelbookingapp.BuildConfig
 import com.manish.hotelbookingapp.HotelBookingApp
+import com.manish.hotelbookingapp.data.local_database.HotelDatabase
 import com.manish.hotelbookingapp.data.web_server.DefaultHeader
 import com.manish.hotelbookingapp.data.web_server.HotelRepository
 import com.manish.hotelbookingapp.data.web_server.HotelRepositoryInterface
 import com.manish.hotelbookingapp.data.web_server.HotelsApiService
-import com.manish.hotelbookingapp.ui.activities.MainActivity
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

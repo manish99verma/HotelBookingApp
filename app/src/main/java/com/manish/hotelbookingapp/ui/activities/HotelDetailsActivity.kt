@@ -1,5 +1,7 @@
 package com.manish.hotelbookingapp.ui.activities
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -22,6 +24,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+
 
 @AndroidEntryPoint
 class HotelDetailsActivity : AppCompatActivity() {
@@ -81,7 +84,43 @@ class HotelDetailsActivity : AppCompatActivity() {
             updateFavoritesIcon(property, true)
         }
 
+        // Book Hotel
+        binding.btnContinue.setOnClickListener {
+            val intent = Intent(this, BookingActivity::class.java)
+            val inputData = Gson().toJson(property)
+            intent.putExtra("property", inputData)
+            startActivity(intent)
+        }
 
+        // send button
+        binding.btnSendImg.setOnClickListener {
+            Toast.makeText(this, "Available soon!", Toast.LENGTH_SHORT)
+                .show()
+        }
+
+        // Phone
+        binding.imgCall.setOnClickListener{
+            val phoneNumber = "1234567890" // Replace with the desired phone number
+
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.setData(Uri.parse("tel:$phoneNumber"))
+            startActivity(intent)
+        }
+
+        // Email
+        binding.imgEmail.setOnClickListener{
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.setType("message/rfc822")
+
+            intent.putExtra(Intent.EXTRA_EMAIL, arrayOf("recipient@example.com"))
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Subject of Email")
+            intent.putExtra(Intent.EXTRA_TEXT, "Body of Email")
+
+            val packageManager = packageManager
+            if (intent.resolveActivity(packageManager) != null) {
+                startActivity(Intent.createChooser(intent, "Send Email"))
+            }
+        }
     }
 
     private fun updateFavoritesIcon(property: Property, isClicked: Boolean) {

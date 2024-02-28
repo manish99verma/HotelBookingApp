@@ -107,4 +107,10 @@
     <string name="gallery">Gallery</string>
     <string name="book_now">BOOK NOW</string>
     <string name="john_mail">John Mail</string>
+    <string name="booking_summary">Booking Summary</string>
+    <string name="booking_date">Booking Date</string>
+    <string name="room_s">Room(s)</string>
+    <string name="total">Total</string>
+    <string name="continue_to_payment">CONTINUE TO PAYMENT</string>
+    <string name="view_e_receipt"><u>VIEW E-RECEIPT</u></string>
 </resources>

@@ -1,9 +1,8 @@
 package com.manish.hotelbookingapp.data.model.hotel_details
 
-data class Header(
+data class Primary(
     val __typename: String,
-    val headerImage: Any?,
+    val accessibilityLabel: Any?,
     val icon: Any?,
-    val subText: Any?,
-    val text: String
+    val value: String
 )

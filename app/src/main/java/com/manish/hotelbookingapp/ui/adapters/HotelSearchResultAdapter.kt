@@ -1,8 +1,10 @@
 package com.manish.hotelbookingapp.ui.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.manish.hotelbookingapp.R
@@ -143,6 +145,12 @@ class HotelSearchResultAdapter :
                     append(" - ")
                     append(it)
                 }
+            }
+
+            // Open Hotel
+            binding.root.setOnClickListener {
+                Log.d("TAGH", "bind: SelectedHotel: ${property.id}")
+                Utils.openHotelDetailsActivity(context, property)
             }
         }
 

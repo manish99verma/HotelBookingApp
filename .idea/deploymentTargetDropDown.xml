@@ -10,12 +10,12 @@
               <deviceKey>
                 <Key>
                   <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\mkv62\.android\avd\flutter_emulator.avd" />
+                  <value value="C:\Users\mkv62\.android\avd\Pixel_6a_API_31.avd" />
                 </Key>
               </deviceKey>
             </Target>
           </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-02-26T07:38:49.134954900Z" />
+          <timeTargetWasSelectedWithDropDown value="2024-02-27T07:19:44.948304900Z" />
         </State>
       </entry>
     </value>

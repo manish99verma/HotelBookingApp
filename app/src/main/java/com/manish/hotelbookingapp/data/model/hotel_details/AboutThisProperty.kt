@@ -1,7 +1,6 @@
 package com.manish.hotelbookingapp.data.model.hotel_details
 
-data class NearbyPOIs(
+data class AboutThisProperty(
     val __typename: String,
-    val icon: Any?,
-    val jumpLink: Any?
+    val sections: List<Section>
 )

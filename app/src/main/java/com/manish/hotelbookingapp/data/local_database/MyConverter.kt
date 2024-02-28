@@ -27,7 +27,6 @@ class MyConverter {
     public fun deSerializePropertyImage(data: String): PropertyImage? {
         if (data.isEmpty())
             return null
-        Log.d("TAGH", "deSerializePropertyImage: dataImage -> $data")
         val type = object : TypeToken<PropertyImage>() {}.type
         return Gson().fromJson(data, type)
     }

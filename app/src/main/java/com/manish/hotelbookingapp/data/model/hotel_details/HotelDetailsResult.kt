@@ -5,5 +5,6 @@ data class HotelDetailsResult(
     val propertyContentSectionGroups: PropertyContentSectionGroups,
     val propertyGallery: PropertyGallery,
     val reviewInfo: ReviewInfo,
-    val summary: Summary
+    val saveTripItem: Any?,
+    val summary:Summary
 )

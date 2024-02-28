@@ -20,7 +20,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 
-class  FavoritesHotelsAdapter :
+class FavoritesHotelsAdapter :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val listDiffer = AsyncListDiffer(this, MyDiffCallback())
 
@@ -41,7 +41,7 @@ class  FavoritesHotelsAdapter :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is FavoriteViewHolder) {
-             holder.bind(listDiffer.currentList[position])
+            holder.bind(listDiffer.currentList[position])
         }
     }
 
@@ -104,6 +104,11 @@ class  FavoritesHotelsAdapter :
                     DatabaseHelper.getInstance().removeFromFavorites(property)
                 }
                 true
+            }
+
+            // Open Hotel
+            binding.root.setOnClickListener {
+                Utils.openHotelDetailsActivity(context, property)
             }
         }
     }

@@ -96,4 +96,15 @@
     <string name="no_offer">No Offer</string>
     <string name="favorite">Favorite</string>
     <string name="your_favorite_hotels_will_appear_here">Your favorite Hotels will appear here</string>
+    <string name="booked">Booked</string>
+    <string name="hotel_details">Hotel Details</string>
+    <string name="under_lined_reviews"><u>4.5 (120 Reviews)</u></string>
+    <string name="underline_text_format"><u>%1$s</u></string>
+    <string name="description">Description</string>
+    <string name="nestled_in_the_lush_tropical_paradise_of_jimbaran_bali_ayana_resort_and_spa_offers_an_enchanting_escape_for_travelers_seeking_luxury_relaxation_and_breathtaking_ocean_views_read_more">Nestled in the lush tropical paradise of Jimbaran, Bali, AYANA Resort and Spa offers an enchanting escape for travelers seeking luxury, relaxation, and breathtaking ocean views</string>
+    <string name="contact_info">Contact Info</string>
+    <string name="receptionist">Receptionist</string>
+    <string name="gallery">Gallery</string>
+    <string name="book_now">BOOK NOW</string>
+    <string name="john_mail">John Mail</string>
 </resources>

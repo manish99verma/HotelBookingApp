@@ -44,7 +44,7 @@ class HotelRepository(private val hotelWebDataSource: HotelsApiService) : HotelR
 
     override suspend fun getHotelDetails(
         domain: String,
-        hotelId: Long,
+        hotelId: String,
         locale: String
     ): Response<HotelDetailsResult> {
         return hotelWebDataSource.getHotelDetails(domain, hotelId, locale)
@@ -75,7 +75,7 @@ interface HotelRepositoryInterface {
 
     suspend fun getHotelDetails(
         domain: String,
-        hotelId: Long,
+        hotelId: String,
         locale: String
     ): Response<HotelDetailsResult>
 }

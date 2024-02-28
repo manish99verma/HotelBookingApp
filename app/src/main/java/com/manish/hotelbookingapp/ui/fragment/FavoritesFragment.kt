@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.OnBackPressedDispatcher
 import androidx.fragment.app.viewModels
@@ -66,6 +67,15 @@ class FavoritesFragment : Fragment() {
         // Back
         binding.backBtn.setOnClickListener {
             (context as Activity).onBackPressed()
+        }
+
+        binding.btnSort.setOnClickListener {
+            Toast.makeText(context, "Available soon!", Toast.LENGTH_SHORT)
+                .show()
+        }
+        binding.btnFilter.setOnClickListener {
+            Toast.makeText(context, "Available soon!", Toast.LENGTH_SHORT)
+                .show()
         }
     }
 

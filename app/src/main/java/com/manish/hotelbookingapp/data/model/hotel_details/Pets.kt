@@ -1,8 +1,8 @@
 package com.manish.hotelbookingapp.data.model.hotel_details
 
-data class Toolbar(
+data class Pets(
     val __typename: String,
-    val clientSideAnalytics: Any?,
-    val icon: Icon,
+    val body: List<String>,
+    val descriptions: List<Any>,
     val title: String
 )

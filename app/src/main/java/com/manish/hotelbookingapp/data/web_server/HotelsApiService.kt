@@ -34,7 +34,7 @@ interface HotelsApiService {
     @GET("hotels/details")
     suspend fun getHotelDetails(
         @Query("domain") domain: String,
-        @Query("hotel_id") hotelId: Long,
+        @Query("hotel_id") hotelId: String,
         @Query("locale") locale: String
     ):Response<HotelDetailsResult>
 }

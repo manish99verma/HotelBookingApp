@@ -92,9 +92,9 @@ class VerifyAccountActivity : AppCompatActivity() {
         }
 
         // Send Email
-        viewModel.generateAndSend(email)
+        viewModel.generateAndSend(userName, email)
         binding.otpResendBtn.setOnClickListener {
-            viewModel.generateAndSend(email)
+            viewModel.generateAndSend(userName, email)
         }
 
         // Sign in state

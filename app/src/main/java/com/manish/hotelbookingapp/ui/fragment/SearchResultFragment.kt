@@ -70,8 +70,8 @@ class SearchResultFragment : Fragment() {
         }
 
         // Recycler Views
-        adapterRecommended = HotelSearchResultAdapter()
-        adapterBusiness = HotelSearchResultAdapter()
+        adapterRecommended = HotelSearchResultAdapter(data!!)
+        adapterBusiness = HotelSearchResultAdapter(data!!)
 
         binding.rvBuisnessAccomodates.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)

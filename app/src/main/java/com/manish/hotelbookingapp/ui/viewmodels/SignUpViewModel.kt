@@ -336,7 +336,7 @@ class SignUpViewModel @Inject constructor(
         return null
     }
 
-    fun generateAndSend(email: String) {
+    fun generateAndSend(userName:String, email: String) {
         Log.d("TAGF", "generateAndSend: ")
 
         timer?.cancel()
@@ -345,8 +345,22 @@ class SignUpViewModel @Inject constructor(
             BuildConfig.EMAIL_SEND_EMAIL,
             BuildConfig.EMAIL_SEND_PASS_KEY,
             email,
-            "Hotel Booking App",
-            "Welcome to our hotel booking app. Your OTP is $currOtp."
+            "Welcome to WanderStay - Your OTP Confirmation",
+            "Dear $userName,\n" +
+                    "\n" +
+                    "Welcome to Wanderstay! We're thrilled to have you join our community of travelers.\n" +
+                    "\n" +
+                    "As a part of our secure signup process, we have generated an OTP (One-Time Password) for your account verification. Your OTP is: $currOtp.\n" +
+                    "\n" +
+                    "Please use this OTP to complete your registration process and unlock all the benefits of being a Wanderstay member.\n" +
+                    "\n" +
+                    "If you have any questions or need assistance, don't hesitate to reach out to our support team at [Your Contact Information]. We're here to help!\n" +
+                    "\n" +
+                    "Thank you for choosing Wanderstay. We look forward to being a part of your travel adventures.\n" +
+                    "\n" +
+                    "Best regards,\n" +
+                    "\n" +
+                    "Wanderstay"
         )
 
         mail.execute()

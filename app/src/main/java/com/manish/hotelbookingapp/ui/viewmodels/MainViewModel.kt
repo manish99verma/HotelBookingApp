@@ -1,14 +1,16 @@
 package com.manish.hotelbookingapp.ui.viewmodels
 
 import android.app.Application
+import android.service.autofill.FillEventHistory
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
-import com.google.gson.Gson
 import com.manish.hotelbookingapp.R
+import com.manish.hotelbookingapp.data.local_database.DatabaseHelper
+import com.manish.hotelbookingapp.data.model.BookedHotel
 import com.manish.hotelbookingapp.data.model.hotel_search.Property
 import com.manish.hotelbookingapp.data.model.regions.RegionsResult
 import com.manish.hotelbookingapp.data.web_server.HotelRepositoryInterface
@@ -23,7 +25,6 @@ import com.manish.hotelbookingapp.util.safeApiCall
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
-import org.json.JSONObject
 import java.util.Calendar
 import javax.inject.Inject
 
@@ -36,7 +37,7 @@ class MainViewModel @Inject constructor(
 ) : AndroidViewModel(application) {
     private val resources = application.resources
     private val _cityIdSearchState = MutableLiveData<GetCityUiModel>()
-    val citySearchResult: LiveData< GetCityUiModel> get() = _cityIdSearchState
+    val citySearchResult: LiveData<GetCityUiModel> get() = _cityIdSearchState
     var searchFragmentState: SearchFragmentUiModel? = null
         private set
 
@@ -45,6 +46,10 @@ class MainViewModel @Inject constructor(
     val dataRecommendedHotel: LiveData<SearchResult> get() = _recommendedHotels
     private val _businessHotels = MutableLiveData<SearchResult>()
     val dataBusinessHotels: LiveData<SearchResult> get() = _businessHotels
+
+    // Booked Hotel fragment
+    var bookedHotels: LiveData<List<BookedHotel>> =
+        DatabaseHelper.getInstance().getBookedHotelsList()
 
     fun isAuthenticated(): Boolean {
         return auth.currentUser != null
@@ -135,7 +140,7 @@ class MainViewModel @Inject constructor(
 
         if (regionsResult.data.isNotEmpty()) {
             city = regionsResult.data[0].regionNames.shortName
-            country = regionsResult.data[0].hierarchyInfo.country.name?:""
+            country = regionsResult.data[0].hierarchyInfo.country.name ?: ""
         }
 
         SearchFragmentUiModel(

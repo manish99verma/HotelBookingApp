@@ -23,4 +23,8 @@
 
     <color name="otp_box_stroke">#4F6C6868</color>
     <color name="editable_card_bg">#1F007EF2</color>
+
+    <color name="fully_transparent_color">#00000000</color>
+    <color name="disabled_color">#57DADADA</color>
+    <color name="grey">#80404040</color>
 </resources>

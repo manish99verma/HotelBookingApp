@@ -19,7 +19,9 @@ import com.manish.hotelbookingapp.data.local_database.DatabaseHelper
 import com.manish.hotelbookingapp.databinding.FragmentFavoritesBinding
 import com.manish.hotelbookingapp.ui.adapters.FavoritesHotelsAdapter
 import com.manish.hotelbookingapp.ui.adapters.HotelSearchResultAdapter
+import com.manish.hotelbookingapp.ui.models.SearchFragmentUiModel
 import com.manish.hotelbookingapp.ui.viewmodels.MainViewModel
+import java.util.Calendar
 
 class FavoritesFragment : Fragment() {
     private lateinit var binding: FragmentFavoritesBinding
@@ -45,7 +47,22 @@ class FavoritesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Recycler view
-        adapter = FavoritesHotelsAdapter()
+        val startDateDemo = Calendar.getInstance()
+        val endDateDemo = Calendar.getInstance()
+        startDateDemo.timeInMillis = System.currentTimeMillis()
+        endDateDemo.timeInMillis = System.currentTimeMillis()
+
+        adapter = FavoritesHotelsAdapter(
+            SearchFragmentUiModel(
+                "Kolkata",
+                "India",
+                4390L,
+                startDateDemo,
+                endDateDemo,
+                5,
+                3
+            )
+        )
 
         binding.rvFavories.layoutManager =
             GridLayoutManager(context, 2)

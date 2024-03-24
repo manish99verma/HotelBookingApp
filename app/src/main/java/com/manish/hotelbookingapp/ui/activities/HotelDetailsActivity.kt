@@ -17,6 +17,7 @@ import com.manish.hotelbookingapp.data.model.hotel_details.HotelDetailsResult
 import com.manish.hotelbookingapp.data.model.hotel_search.Property
 import com.manish.hotelbookingapp.databinding.ActivityHotelDetailsBinding
 import com.manish.hotelbookingapp.ui.adapters.ImageGalleryAdapter
+import com.manish.hotelbookingapp.ui.models.SearchFragmentUiModel
 import com.manish.hotelbookingapp.ui.viewmodels.HotelDetailsViewModel
 import com.manish.hotelbookingapp.util.Utils
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,6 +32,7 @@ class HotelDetailsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHotelDetailsBinding
     private val viewModel: HotelDetailsViewModel by viewModels()
     private lateinit var property: Property
+    private lateinit var bookingDetails: SearchFragmentUiModel
     private lateinit var imageGalleryAdapter: ImageGalleryAdapter
     private var favorites = mutableMapOf<String, Property>()
 
@@ -39,9 +41,14 @@ class HotelDetailsActivity : AppCompatActivity() {
         binding = ActivityHotelDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Getting Passed Data
         val data = intent.getStringExtra("property")!!
         val type = object : TypeToken<Property>() {}.type
         property = Gson().fromJson(data, type)
+
+        val searchData = intent.getStringExtra("booking_details")!!
+        val searchUiType = object : TypeToken<SearchFragmentUiModel>() {}.type
+        bookingDetails = Gson().fromJson(searchData, searchUiType)
 
         // Fetch Data
         viewModel.hotelDetailsData.observe(this) {
@@ -87,8 +94,10 @@ class HotelDetailsActivity : AppCompatActivity() {
         // Book Hotel
         binding.btnContinue.setOnClickListener {
             val intent = Intent(this, BookingActivity::class.java)
-            val inputData = Gson().toJson(property)
-            intent.putExtra("property", inputData)
+
+            intent.putExtra("property", Gson().toJson(property))
+            intent.putExtra("booking_details", Gson().toJson(bookingDetails))
+
             startActivity(intent)
         }
 
@@ -99,7 +108,7 @@ class HotelDetailsActivity : AppCompatActivity() {
         }
 
         // Phone
-        binding.imgCall.setOnClickListener{
+        binding.imgCall.setOnClickListener {
             val phoneNumber = "1234567890" // Replace with the desired phone number
 
             val intent = Intent(Intent.ACTION_DIAL)
@@ -108,7 +117,7 @@ class HotelDetailsActivity : AppCompatActivity() {
         }
 
         // Email
-        binding.imgEmail.setOnClickListener{
+        binding.imgEmail.setOnClickListener {
             val intent = Intent(Intent.ACTION_SEND)
             intent.setType("message/rfc822")
 

@@ -5,10 +5,12 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.manish.hotelbookingapp.data.model.hotel_search.OfferBadge
+import com.manish.hotelbookingapp.data.model.hotel_search.Property
 import com.manish.hotelbookingapp.data.model.hotel_search.PropertyDestinationInfo
 import com.manish.hotelbookingapp.data.model.hotel_search.PropertyImage
 import com.manish.hotelbookingapp.data.model.hotel_search.PropertyPrice
 import com.manish.hotelbookingapp.data.model.hotel_search.PropertyReviewsSummary
+import com.manish.hotelbookingapp.ui.models.SearchFragmentUiModel
 
 
 class MyConverter {
@@ -80,6 +82,34 @@ class MyConverter {
         if (data.isEmpty())
             return null
         val type = object : TypeToken<PropertyPrice>() {}.type
+        return Gson().fromJson(data, type)
+    }
+
+    @TypeConverter
+    public fun serializeProperty(property: Property): String {
+        return serialize(property)
+    }
+
+    @TypeConverter
+    public fun deSerializeProperty(data: String): Property? {
+        if (data.isEmpty())
+            return null
+
+        val type = object : TypeToken<Property>() {}.type
+        return Gson().fromJson(data, type)
+    }
+
+    @TypeConverter
+    public fun serializeBookingDetails(bookingDetails: SearchFragmentUiModel): String {
+        return serialize(bookingDetails)
+    }
+
+    @TypeConverter
+    public fun deSerializeBookingDetails(data: String): SearchFragmentUiModel? {
+        if (data.isEmpty())
+            return null
+
+        val type = object : TypeToken<SearchFragmentUiModel>() {}.type
         return Gson().fromJson(data, type)
     }
 }

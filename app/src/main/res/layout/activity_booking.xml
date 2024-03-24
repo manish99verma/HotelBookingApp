@@ -94,7 +94,7 @@
                     android:fontFamily="@font/roboto_bold"
                     android:textColor="@color/surface_color_1"
                     android:textSize="18sp"
-                    android:text="Rs 1000" />
+                    android:text="Rs 1450" />
 
                 <TextView
                     android:id="@+id/txt_price_duration"
@@ -140,7 +140,7 @@
                 android:fontFamily="@font/roboto_light"
                 android:textColor="@color/surface_color_caption"
                 android:textSize="17sp"
-                android:text="1-Oct-2023" />
+                android:text="8-Oct-2023" />
 
         </LinearLayout>
 
@@ -167,7 +167,7 @@
                 android:fontFamily="@font/roboto_light"
                 android:textColor="@color/surface_color_caption"
                 android:textSize="17sp"
-                android:text="1-Oct-2023" />
+                android:text="10-Oct-2023" />
 
         </LinearLayout>
 
@@ -194,7 +194,7 @@
                 android:fontFamily="@font/roboto_light"
                 android:textColor="@color/surface_color_caption"
                 android:textSize="17sp"
-                android:text="1-Oct-2023" />
+                android:text="11-Oct-2023" />
 
         </LinearLayout>
 
@@ -221,7 +221,7 @@
                 android:fontFamily="@font/roboto_light"
                 android:textColor="@color/surface_color_caption"
                 android:textSize="17sp"
-                android:text="3" />
+                android:text="5" />
 
         </LinearLayout>
 
@@ -248,7 +248,7 @@
                 android:id="@+id/txt_rooms_count"
                 android:textColor="@color/surface_color_caption"
                 android:textSize="17sp"
-                android:text="1" />
+                android:text="3" />
 
         </LinearLayout>
 
@@ -281,7 +281,7 @@
                 android:fontFamily="@font/roboto_light"
                 android:textColor="@color/surface_color_caption"
                 android:textSize="17sp"
-                android:text="Rs 1000 x 3" />
+                android:text="Rs 1450 x 3" />
 
         </LinearLayout>
         <LinearLayout
@@ -307,7 +307,7 @@
                 android:fontFamily="@font/roboto_light"
                 android:textColor="@color/surface_color_caption"
                 android:textSize="17sp"
-                android:text="Rs 300" />
+                android:text="Rs 458" />
 
         </LinearLayout>
         <LinearLayout
@@ -333,7 +333,7 @@
                 android:fontFamily="@font/roboto_light"
                 android:textColor="@color/surface_color_caption"
                 android:textSize="17sp"
-                android:text="Rs 3300" />
+                android:text="Rs 4808" />
 
         </LinearLayout>
 

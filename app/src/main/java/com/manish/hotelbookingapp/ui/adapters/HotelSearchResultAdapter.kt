@@ -13,12 +13,13 @@ import com.manish.hotelbookingapp.data.local_database.PreferenceHelper
 import com.manish.hotelbookingapp.data.model.hotel_search.Property
 import com.manish.hotelbookingapp.databinding.HotelOverviewItemBinding
 import com.manish.hotelbookingapp.databinding.ItemLoadingBinding
+import com.manish.hotelbookingapp.ui.models.SearchFragmentUiModel
 import com.manish.hotelbookingapp.util.Utils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 
-class HotelSearchResultAdapter :
+class HotelSearchResultAdapter(private val searchFragmentUiModel: SearchFragmentUiModel) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     //    private val listDiffer = AsyncListDiffer(this, MyDiffCallback())
     private var list: List<Property>? = null
@@ -56,7 +57,7 @@ class HotelSearchResultAdapter :
         return if (viewType == ITEM) {
             val binding =
                 HotelOverviewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            HotelViewHolder(binding, parent.context, favorites)
+            HotelViewHolder(binding, parent.context, favorites, searchFragmentUiModel)
         } else {
             val view =
                 ItemLoadingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -91,6 +92,7 @@ class HotelSearchResultAdapter :
         private val binding: HotelOverviewItemBinding,
         private val context: Context,
         private val favorites: MutableMap<String, Property>,
+        private val searchFragmentUiModel: SearchFragmentUiModel
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(property: Property) {
             // Thumbnail
@@ -150,7 +152,7 @@ class HotelSearchResultAdapter :
             // Open Hotel
             binding.root.setOnClickListener {
                 Log.d("TAGH", "bind: SelectedHotel: ${property.id}")
-                Utils.openHotelDetailsActivity(context, property)
+                Utils.openHotelDetailsActivity(context, property, searchFragmentUiModel)
             }
         }
 

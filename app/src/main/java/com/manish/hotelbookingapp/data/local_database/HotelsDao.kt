@@ -6,6 +6,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.manish.hotelbookingapp.data.model.BookedHotel
 import com.manish.hotelbookingapp.data.model.hotel_search.Property
 
 @Dao
@@ -21,4 +22,10 @@ interface HotelsDao {
 
     @Query("SELECT * FROM hotel_search_result_property")
     fun getFavoritesListAsync(): LiveData<List<Property>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addToBookedHotelsList(hotel: BookedHotel)
+
+    @Query("SELECT * FROM booked_hotel")
+    fun getAllBookedHotels():LiveData<List<BookedHotel>>
 }

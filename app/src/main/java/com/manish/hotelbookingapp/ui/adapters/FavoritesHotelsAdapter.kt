@@ -15,12 +15,13 @@ import com.manish.hotelbookingapp.data.model.hotel_search.Property
 import com.manish.hotelbookingapp.databinding.HotelOverviewItemBinding
 import com.manish.hotelbookingapp.databinding.ItemFavoriteHotelBinding
 import com.manish.hotelbookingapp.databinding.ItemLoadingBinding
+import com.manish.hotelbookingapp.ui.models.SearchFragmentUiModel
 import com.manish.hotelbookingapp.util.Utils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 
-class FavoritesHotelsAdapter :
+class FavoritesHotelsAdapter(private val searchUiModel: SearchFragmentUiModel) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val listDiffer = AsyncListDiffer(this, MyDiffCallback())
 
@@ -31,7 +32,7 @@ class FavoritesHotelsAdapter :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding =
             ItemFavoriteHotelBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return FavoriteViewHolder(binding, parent.context)
+        return FavoriteViewHolder(binding, parent.context, searchUiModel)
     }
 
 
@@ -48,6 +49,7 @@ class FavoritesHotelsAdapter :
     class FavoriteViewHolder(
         private val binding: ItemFavoriteHotelBinding,
         private val context: Context,
+        private val searchUiModel: SearchFragmentUiModel
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(property: Property) {
             // Thumbnail
@@ -108,7 +110,7 @@ class FavoritesHotelsAdapter :
 
             // Open Hotel
             binding.root.setOnClickListener {
-                Utils.openHotelDetailsActivity(context, property)
+                Utils.openHotelDetailsActivity(context, property, searchUiModel)
             }
         }
     }

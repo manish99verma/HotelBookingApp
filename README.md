@@ -64,7 +64,7 @@ Screenshots
 
 The Hotel Booking App is currently available for Android devices only. To install the app, follow these steps:
 
-1. Download the APK file from the [releases](app/release) section.
+1. Download the APK file from the [releases](https://manish99verma.github.io/my-portfolio/assets/apks/hotel-booking-app.apk) section.
 2. Enable installation from unknown sources in your device settings.
 3. Install the APK file on your Android device.
 4. Open the app and start exploring hotels and making reservations!

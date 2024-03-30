@@ -19,12 +19,12 @@ Screenshots
 
 <div style="width:100%; display:flex; justify-content: space-evenly; align-items: center;">
 
-[<img src="metadata/screenshots/screenshot_2.png" width=30% alt="Home">](metadata/screenshots/screenshot-1.png)
-[<img src="metadata/screenshots/screenshot_4.png" width=30% alt="Home">](metadata/screenshots/screenshot-2.png)
-[<img src="metadata/screenshots/screenshot_7.png" width=30% alt="Home">](metadata/screenshots/screenshot-3.png)
-[<img src="metadata/screenshots/screenshot_9.png" width=30% alt="Home">](metadata/screenshots/screenshot-4.png)
-[<img src="metadata/screenshots/screenshot_10.png" width=30% alt="Home">](metadata/screenshots/screenshot-5.png)
-[<img src="metadata/screenshots/screenshot_6.png" width=30% alt="Home">](metadata/screenshots/screenshot-6.png)
+[<img src="metadata/screenshots/screenshot_2.png" width=30% alt="Home">](metadata/screenshots/screenshot_1.png)
+[<img src="metadata/screenshots/screenshot_4.png" width=30% alt="Home">](metadata/screenshots/screenshot_2.png)
+[<img src="metadata/screenshots/screenshot_7.png" width=30% alt="Home">](metadata/screenshots/screenshot_3.png)
+[<img src="metadata/screenshots/screenshot_9.png" width=30% alt="Home">](metadata/screenshots/screenshot_4.png)
+[<img src="metadata/screenshots/screenshot_10.png" width=30% alt="Home">](metadata/screenshots/screenshot_5.png)
+[<img src="metadata/screenshots/screenshot_6.png" width=30% alt="Home">](metadata/screenshots/screenshot_6.png)
 
 </div>
 

@@ -30,23 +30,23 @@ Screenshots
 
 ## Features
 
-### 1. User Authentication
+### User Authentication
 
 - **Sign up**: Users can create an account by providing necessary details such as name, email, and password.
 - **Login**: Registered users can log in securely to access the booking functionalities.
 - **Social Logins**: Supports login with social platforms like Google and Facebook.
 
-### 2. Hotel Search
+### Hotel Search
 
 - **Search by Location**: Users can search for hotels based on their desired location, such as city or landmark.
 - **Filtering**: Users can apply filters like price range, star rating, amenities, etc., to refine their search results.
 
-### 3. Room Reservation
+### Room Reservation
 
 - **View Available Rooms**: Users can see available rooms for selected dates and hotel.
 - **Reservation**: Users can select the desired room and proceed to make a reservation by providing necessary details like check-in/check-out dates, number of guests, etc.
 
-### 4. User Dashboard
+### User Dashboard
 
 - **Reservation Management**: Users can view their past and upcoming reservations.
 - **Favorites**: Users can add their favorite hotes in wishlist.
